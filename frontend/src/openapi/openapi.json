@@ -1,0 +1,108 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "OpenApi Specifications",
+    "description": "OpenApi documentation for Spring Security with Spotify OAuth2",
+    "contact": {
+      "name": "Meli",
+      "email": "melanieschiebel@gmx.at"
+    },
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api/v1",
+      "description": "Local ENV"
+    },
+    {
+      "url": "https://meli.com",
+      "description": "PROD ENV"
+    }
+  ],
+  "security": [
+    {
+      "oauth2": []
+    }
+  ],
+  "paths": {
+    "/user-profile": {
+      "get": {
+        "tags": [
+          "spotify-controller"
+        ],
+        "operationId": "getUserProfile",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test": {
+      "get": {
+        "tags": [
+          "spotify-controller"
+        ],
+        "operationId": "test",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/debug-auth": {
+      "get": {
+        "tags": [
+          "spotify-controller"
+        ],
+        "operationId": "debugAuth",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "OAuth2 authentication with Spotify",
+        "in": "header",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://accounts.spotify.com/authorize",
+            "tokenUrl": "https://accounts.spotify.com/api/token",
+            "scopes": {
+              "user-read-private": "Read access to user's private information",
+              "user-read-email": "Read access to user's email address"
+            }
+          }
+        }
+      }
+    }
+  }
+}

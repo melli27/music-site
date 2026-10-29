@@ -1,0 +1,47 @@
+spring:
+  config:
+    import: "optional:file:.env[.properties],optional:file:../.env[.properties]"
+  datasource:
+    url: jdbc:postgresql://localhost:5432/music_site
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  security:
+    oauth2:
+      client:
+        registration:
+          spotify:
+            client-id: ${SPOTIFY_CLIENT_ID}
+            client-secret: ${SPOTIFY_CLIENT_SECRET}
+            scope: user-read-private,user-read-email,playlist-read-private,user-top-read,user-read-recently-played # TODO Add required scopes
+            authorization-grant-type: authorization_code
+            redirect-uri: "http://127.0.0.1:8080/api/v1/login/oauth2/code/spotify"
+        provider:
+          spotify:
+            authorization-uri: https://accounts.spotify.com/authorize
+            token-uri: https://accounts.spotify.com/api/token
+            user-info-uri: https://api.spotify.com/v1/me
+            user-name-attribute: id
+  file:
+    upload:
+      photos-output-path: ./uploads
+server:
+  port: 8080
+
+resilience4j:
+  ratelimiter:
+    instances:
+      apiRateLimiter:
+        limitForPeriod: 5         # Max 5 requests per period
+        limitRefreshPeriod: 1s    # Refresh the limit every 1 second
+        timeoutDuration: 500ms    # Timeout duration for requests if limit exceeded

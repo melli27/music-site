@@ -1,0 +1,255 @@
+<div class="statistics-container">
+  <!-- Page Header -->
+  <section class="stats-header-section">
+    <div class="container">
+      <h1 class="stats-title">Your Music <span class="accent-text">Statistics</span></h1>
+      <p class="stats-description">
+        Discover insights about your music taste, favorite artists, and listening patterns.
+      </p>
+    </div>
+  </section>
+
+  <!-- Overview Cards -->
+  <section class="stats-overview-section">
+    <div class="container">
+      <div class="stats-cards-container row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <div class="col">
+          <div class="stats-card">
+            <div class="stats-card-icon">
+              <i class="bi bi-music-note"></i>
+            </div>
+            <div class="stats-card-content">
+              <h3 class="stats-card-title">Top Genre</h3>
+              <p class="stats-card-value">{{sortedGenres?.at(0)?.genre}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="stats-card">
+            <div class="stats-card-icon">
+              <i class="bi bi-person"></i>
+            </div>
+            <div class="stats-card-content">
+              <h3 class="stats-card-title">Top Artist</h3>
+              <p class="stats-card-value">{{topArtist}}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="stats-card">
+            <div class="stats-card-icon">
+              <i class="bi bi-emoji-smile"></i>
+            </div>
+            <div class="stats-card-content">
+              <h3 class="stats-card-title">Mood</h3>
+              <p class="stats-card-value">Energetic</p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="stats-card">
+            <div class="stats-card-icon">
+              <i class="bi bi-soundwave"></i>
+            </div>
+            <div class="stats-card-content">
+              <h3 class="stats-card-title">Energy Level</h3>
+              <p class="stats-card-value">High</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Statistics Content -->
+  <section class="stats-main-section">
+    <div class="container">
+      <div class="row g-4">
+        <!-- Top Artists -->
+        <div class="col-lg-6">
+          <div class="stats-panel">
+            <div class="stats-panel-header">
+              <h2 class="stats-panel-title">Top Artists</h2>
+              <div class="stats-panel-actions">
+                <select class="stats-timeframe-select form-select">
+                  <option value="short_term" (click)="getTopArtists(TimeRange.SHORT_TERM)">Last 4 Weeks</option>
+                  <option value="medium_term" (click)="getTopArtists(TimeRange.MEDIUM_TERM)" selected>Last 6 Months</option>
+                  <option value="long_term" (click)="getTopArtists(TimeRange.LONG_TERM)">Last Year</option>
+                </select>
+              </div>
+            </div>
+            <div class="stats-panel-content">
+              <ul class="stats-list list-unstyled">
+                <li class="stats-list-item" *ngFor="let artist of topArtists?.items?.slice(0, limit); let i = index">
+                  <div class="stats-rank">{{i+1}}</div>
+                  <div class="stats-item-image">
+                    <img src="{{artist.images[0].url}}" class="stats-artist-image">
+                  </div>
+                  <div class="stats-item-info">
+                    <h4 class="stats-item-name">{{artist.name}}</h4>
+                    <p class="stats-item-meta">{{artist.genres}}</p>
+                  </div>
+                </li>
+              </ul>
+              <a href="#" class="stats-see-more">See More</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Top Tracks -->
+        <div class="col-lg-6">
+          <div class="stats-panel">
+            <div class="stats-panel-header">
+              <h2 class="stats-panel-title">Top Tracks</h2>
+              <div class="stats-panel-actions">
+                <select class="stats-timeframe-select form-select">
+                  <option value="short_term" (click)="getTopTracks(limit, TimeRange.SHORT_TERM)">Last 4 Weeks</option>
+                  <option value="medium_term" (click)="getTopTracks(limit, TimeRange.MEDIUM_TERM)" selected>Last 6 Months</option>
+                  <option value="long_term" (click)="getTopTracks(limit, TimeRange.LONG_TERM)">All Time</option>
+                </select>
+              </div>
+            </div>
+            <div class="stats-panel-content">
+              <ul class="stats-list list-unstyled">
+                <li class="stats-list-item" *ngFor="let track of topTracks?.items?.slice(0,limit); let i = index">
+                  <div class="stats-rank">{{i+1}}</div>
+                  <div class="stats-item-image">
+                    <img src="{{track.album.images[0].url}}" alt="Track Cover" class="stats-track-image">
+                  </div>
+                  <div class="stats-item-info">
+                    <h4 class="stats-item-name">{{track.name}}</h4>
+                    <p class="stats-item-meta" *ngFor="let artist of track.artists">{{artist.name}}</p> <!--todo artists-->
+                  </div>
+                </li>
+              </ul>
+              <a *ngIf="limit < 10" (click)="this.limit = 10" class="stats-see-more">See More</a>
+              <a *ngIf="limit > 5" (click)="this.limit = 5" class="stats-see-more">See Less</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Genre Distribution -->
+      <div class="row mt-lg g-4">
+        <div class="col-lg-6">
+          <div class="stats-panel">
+            <div class="stats-panel-header">
+              <h2 class="stats-panel-title">Genre Distribution</h2>
+            </div>
+            <div class="stats-panel-content">
+              <div class="stats-chart-container">
+                <div class="stats-chart-placeholder">
+<!--                  <div class="genre-distribution">
+                    <div  class="genre-bar" *ngFor="let genre of sortedGenres" [style.width.%]="genre.percentage">
+                      <span class="genre-name">{{ genre.genre }}</span>
+                      <span class="genre-percentage">{{ genre.percentage.toFixed(2) }}%</span>
+                    </div>
+                  </div>-->
+                  <canvas baseChart
+                          [type]="'pie'"
+                          [datasets]="pieChartDatasets"
+                          [labels]="pieChartLabels"
+                          [options]="pieChartOptions"
+                          [plugins]="pieChartPlugins"
+                          [legend]="pieChartLegend">
+                  </canvas>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mood Analysis -->
+        <div class="col-lg-6">
+          <div class="stats-panel">
+            <div class="stats-panel-header">
+              <h2 class="stats-panel-title">Mood Analysis</h2>
+            </div>
+            <div class="stats-panel-content">
+              <div class="stats-chart-container">
+                <div class="stats-chart-placeholder">
+                  <div class="mood-analysis">
+                    <div class="mood-item">
+                      <div class="mood-gauge">
+                        <div class="mood-gauge-fill" style="height: 75%;"></div>
+                      </div>
+                      <div class="mood-label">Energy</div>
+                    </div>
+                    <div class="mood-item">
+                      <div class="mood-gauge">
+                        <div class="mood-gauge-fill" style="height: 60%;"></div>
+                      </div>
+                      <div class="mood-label">Danceability</div>
+                    </div>
+                    <div class="mood-item">
+                      <div class="mood-gauge">
+                        <div class="mood-gauge-fill" style="height: 45%;"></div>
+                      </div>
+                      <div class="mood-label">Positivity</div>
+                    </div>
+                    <div class="mood-item">
+                      <div class="mood-gauge">
+                        <div class="mood-gauge-fill" style="height: 30%;"></div>
+                      </div>
+                      <div class="mood-label">Acousticness</div>
+                    </div>
+                    <div class="mood-item">
+                      <div class="mood-gauge">
+                        <div class="mood-gauge-fill" style="height: 80%;"></div>
+                      </div>
+                      <div class="mood-label">Tempo</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recently Played -->
+      <div class="row mt-lg g-4">
+        <div class="col-12">
+          <div class="stats-panel">
+            <div class="stats-panel-header">
+              <h2 class="stats-panel-title">Recently Played</h2>
+            </div>
+            <div class="stats-panel-content">
+              <div class="recent-tracks-grid row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4">
+                <div class="col" *ngFor="let recentTrack of recentTracks?.items">
+                  <div class="recent-track">
+                    <div class="recent-track-image">
+                      <img src="{{recentTrack.track.album.images[0].url}}" alt="Track Cover">
+                      <div class="recent-track-overlay">
+                        <i class="bi bi-play-fill"></i>
+                      </div>
+                    </div>
+                    <h4 class="recent-track-title">{{recentTrack.track.name}}</h4>
+                    <p class="recent-track-artist">{{recentTrack.track.artists[0].name}}</p> <!--todo artists-->
+                    <span class="recent-track-time">{{recentTrack.playedAt}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-card">
+        <h2 class="cta-title">Want to discover more about your music taste?</h2>
+        <p class="cta-description">
+          Create personalized playlists based on your stats and expand your musical horizons.
+        </p>
+        <a href="#" class="btn btn-primary btn-lg">
+          <i class="bi bi-music-note-list"></i> Create Smart Playlist
+        </a>
+      </div>
+    </div>
+  </section>
+</div>

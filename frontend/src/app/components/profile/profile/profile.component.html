@@ -1,0 +1,84 @@
+<!-- profile.component.html -->
+<div class="profile-container">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="profile-card">
+          <div class="profile-header">
+            <div class="profile-image">
+              <img *ngIf="profile?.images && profile.images.length" [src]="profile.images[0].url" alt="{{ profile.display_name }}'s profile">
+              <div *ngIf="!profile || !profile.images || !profile.images.length" class="no-image">
+                <i class="bi bi-person-circle"></i>
+              </div>
+            </div>
+            <div class="profile-info">
+              <h2 class="profile-name">{{ profile?.display_name }}</h2>
+              <span class="profile-id">ID: {{ profile?.id }}</span>
+            </div>
+          </div>
+          <div class="profile-stats">
+            <div class="stat-item">
+              <span class="stat-label">Followers</span>
+              <span class="stat-value">{{ profile?.followers?.total }}</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">Type</span>
+              <span class="stat-value capitalize">{{ profile?.type }}</span>
+            </div>
+          </div>
+          <div class="profile-actions">
+            <a [href]="profile?.external_urls?.spotify" target="_blank" class="btn btn-spotify">
+              <i class="bi bi-spotify"></i> Open in Spotify
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="content-card">
+          <h3>Your Music Journey</h3>
+          <div class="activity-section">
+            <div class="section-header">
+              <h4>Recent Activity</h4>
+              <span class="badge bg-accent">Coming Soon</span>
+            </div>
+            <p class="muted-text">We'll soon show your recently created Playlists here.</p>
+            <div class="placeholder-container">
+              <div class="placeholder-item" *ngFor="let i of [1,2,3]">
+                <div class="placeholder-image"></div>
+                <div class="placeholder-text">
+                  <div class="placeholder-line"></div>
+                  <div class="placeholder-line short"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="sync-section">
+            <h4>Profile Details</h4>
+            <div class="detail-item">
+              <i class="bi bi-link-45deg"></i>
+              <div class="detail-content">
+                <span class="detail-label">Spotify URI</span>
+                <span class="detail-value">{{ profile?.uri }}</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <i class="bi bi-globe"></i>
+              <div class="detail-content">
+                <span class="detail-label">API Endpoint</span>
+                <span class="detail-value">{{ profile?.href }}</span>
+              </div>
+            </div>
+            <div class="update-info">
+              <!-- TODO last updated -->
+              <span class="last-updated">Last synchronized: <span class ="time"><!--{{ lastUpdated | date:'medium' }}-->12:24am</span></span>
+              <!--TODO maybe create button for deleting token from spotify-->
+              <button class="btn btn-outline-accent btn-sm refresh-btn">
+                <i class="bi bi-arrow-clockwise"></i> Refresh
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

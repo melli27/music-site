@@ -1,0 +1,56 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <!--Brand-->
+  <a class="navbar-brand" href="/home">
+    <img src="assets/logo.svg" alt="MeloMix Logo">
+    <span class="brand-name">&nbsp;MeloMix</span>
+  </a>
+  <!--Toggle Button TODO-->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!--Buttons-->
+  <div class="collapse navbar-collapse justify-content-end">
+    <ul class="navbar-nav mr-auto">
+      <!--Themes-->
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+           aria-expanded="false"> Themes </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" (click)="changeTheme('theme-purple-dark')">Purple Dark</a></li>
+          <li><a class="dropdown-item" href="#" (click)="changeTheme('theme-midnight-groove')">Midnight Groove</a></li>
+          <li><a class="dropdown-item" href="#" (click)="changeTheme('theme-deep-ocean')">Deep Ocean</a></li>
+          <li><a class="dropdown-item" href="#" (click)="changeTheme('theme-neon-lights')">Neon Lights</a></li>
+          <li><a class="dropdown-item" href="#" (click)="changeTheme('theme-synthwave')">Synthwave</a></li>
+          <li><a class="dropdown-item" href="#" (click)="changeTheme('theme-dark-forest')">Dark Forest</a></li>
+          <li><a class="dropdown-item" href="#" (click)="changeTheme('theme-smooth-charcoal')">Smooth Charcoal</a></li>
+          <li><a class="dropdown-item" href="#" (click)="changeTheme('theme-spotify-dark')">Spotify Dark</a></li>
+          <li><a class="dropdown-item" href="#" (click)="changeTheme('theme-dark-cherry')">Dark Cherry</a></li>
+        </ul>
+      </li>
+      <!-- If not signed in: -->
+      <!--Features-->
+      <li *ngIf="!signedIn" class="nav-item">
+        <a class="nav-link" href="/features">Features</a>
+      </li>
+      <!--Sign in-->
+      <li *ngIf="!signedIn" class="nav-item">
+        <a class="nav-link action-btn" href="http://127.0.0.1:8080/api/v1/oauth2/authorization/spotify">Sign in</a>
+      </li>
+      <!-- If signed in: -->
+      <li *ngIf="signedIn" class="nav-item">
+        <a class="nav-link" href="/stats">Stats</a>
+      </li>
+      <li *ngIf="signedIn" class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdown2" role="button" data-bs-toggle="dropdown"
+           aria-expanded="false"><i class="bi bi-person-circle"></i>&nbsp;{{username}}</a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="/profile">Profile</a></li>
+          <li><a class="dropdown-item" href="#">Settings</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><a class="dropdown-item" href="http://127.0.0.1:8080/api/v1/logout">Logout</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>

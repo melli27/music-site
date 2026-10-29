@@ -1,0 +1,654 @@
+// TODO Other variables
+$logo-height-desktop: 40px;
+$logo-height-tablet: 36px;
+$logo-height-mobile: 32px;
+$transition-speed: 0.3s;
+$border-radius: 8px;
+
+$text: var(--text, #FFFFFF);
+$text-muted: var(--text-muted, rgba(255, 255, 255, 0.7));
+$background: var(--background, #121212);
+$secondary: var(--secondary, #181818);
+$card-background: #232323;
+$card-border-radius: 16px;
+$section-padding: 40px 0;
+$card-padding: 24px;
+$transition-speed: 0.3s;
+
+
+// Breakpoints
+$breakpoint-mobile: 576px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 992px;
+
+// Variables
+$logo-height-desktop: 40px;
+$logo-height-tablet: 36px;
+$logo-height-mobile: 32px;
+$transition-speed: 0.3s;
+$border-radius: 8px;
+
+// Custom theme colors
+$text: var(--text, #FFFFFF);
+$text-muted: var(--text-muted, rgba(255, 255, 255, 0.7));
+$background: var(--background, #121212);
+$secondary: var(--secondary, #181818);
+$card-background: #232323;
+$card-border-radius: 16px;
+$section-padding: 40px 0;
+$card-padding: 24px;
+$transition-speed: 0.3s;
+
+// Breakpoints - using Bootstrap 5 breakpoints
+$breakpoint-mobile: 576px;  // sm
+$breakpoint-tablet: 768px;  // md
+$breakpoint-desktop: 992px; // lg
+
+a{
+  cursor: pointer !important;
+}
+
+// Base container
+.statistics-container {
+  background-color: var(--background);
+  color: var(--text);
+}
+
+// Stats Header
+.stats-header-section {
+  padding: 80px 0 40px;
+  position: relative;
+  text-align: center;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at top, rgba(var(--accent-rgb), 0.1), transparent 70%);
+    pointer-events: none;
+  }
+}
+
+.stats-title {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+
+  @media (max-width: $breakpoint-tablet) {
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 2rem;
+  }
+}
+
+.stats-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 1rem;
+  }
+}
+
+// Overview Cards
+.stats-overview-section {
+  padding: 0 0 60px;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 0 0 40px;
+  }
+}
+
+// Use Bootstrap grid classes instead of custom grid
+.stats-cards-container {
+  // Bootstrap 5 handles the grid
+}
+
+.stats-card {
+  background-color: var(--secondary);
+  border-radius: $card-border-radius;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  height: 100%;  // Ensure equal height in Bootstrap grid
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 16px;
+  }
+}
+
+.stats-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  flex-shrink: 0;
+
+  @media (max-width: $breakpoint-mobile) {
+    width: 40px;
+    height: 40px;
+  }
+
+  i {
+    font-size: 1.4rem;
+    color: white;
+
+    @media (max-width: $breakpoint-mobile) {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.stats-card-content {
+  flex: 1;
+}
+
+.stats-card-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-muted);
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 0.85rem;
+  }
+}
+
+.stats-card-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0; // Reset Bootstrap margin
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 1.1rem;
+  }
+}
+
+// Main Statistics Section
+.stats-main-section {
+  padding: 20px 0 80px;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 20px 0 60px;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 10px 0 40px;
+  }
+}
+
+.mt-lg {
+  padding-top: 40px;
+
+  @media (max-width: $breakpoint-tablet) {
+    padding-top: 30px;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding-top: 20px;
+  }
+}
+
+.stats-panel {
+  background-color: var(--secondary);
+  border-radius: $card-border-radius;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  height: 100%;
+  margin-bottom: 0; // Use Bootstrap spacing instead
+
+  // Remove the media queries for margin-bottom - Bootstrap grid handles spacing
+}
+
+.stats-panel-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 16px 20px;
+  }
+}
+
+.stats-panel-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 1.1rem;
+  }
+}
+
+.stats-panel-actions {
+  display: flex;
+  align-items: center;
+}
+
+// Update select for Bootstrap 5
+.stats-timeframe-select {
+  background-color: var(--secondary);
+  color: var(--text);
+  //border-radius: $border-radius;
+  //border: nome
+  font-size: 0.9rem;
+  outline: none;
+  cursor: pointer !important;
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 6px 10px;
+    font-size: 0.8rem;
+  }
+
+}
+.stats-panel-content {
+  padding: 24px;
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 16px;
+  }
+}
+
+// Stats Lists
+.stats-list {
+  // list-unstyled from Bootstrap
+  margin: 0;
+}
+
+.stats-list-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 10px 0;
+  }
+}
+
+.stats-rank {
+  width: 30px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
+
+  @media (max-width: $breakpoint-mobile) {
+    width: 24px;
+    font-size: 1rem;
+  }
+}
+
+.stats-item-image {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-right: 16px;
+
+  @media (max-width: $breakpoint-mobile) {
+    width: 40px;
+    height: 40px;
+    margin-right: 12px;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.stats-item-info {
+  flex: 1;
+}
+
+.stats-item-name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 4px;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 0.9rem;
+  }
+}
+
+.stats-item-meta {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: 0;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 0.8rem;
+  }
+}
+
+.stats-see-more {
+  display: inline-block;
+  margin-top: 16px;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Chart Container
+.stats-chart-container {
+  position: relative;
+  height: 240px;
+
+  @media (max-width: $breakpoint-mobile) {
+    height: 200px;
+  }
+}
+
+.stats-chart-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Genre Distribution
+.genre-distribution {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.genre-bar {
+  min-width: 100px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+  border-radius: $border-radius;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  margin-bottom: 10px;
+  position: relative;
+
+  @media (max-width: $breakpoint-mobile) {
+    height: 30px;
+    padding: 0 10px;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.genre-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 0.8rem;
+  }
+}
+
+.genre-percentage {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: white;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 0.8rem;
+  }
+}
+
+// Mood Analysis
+.mood-analysis {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.mood-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 18%;
+}
+
+.mood-gauge {
+  width: 100%;
+  height: 180px;
+  position: relative;
+  border-radius: $border-radius $border-radius 0 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-bottom: 10px;
+
+  @media (max-width: $breakpoint-mobile) {
+    height: 150px;
+  }
+}
+
+.mood-gauge-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, var(--accent), var(--accent-hover));
+  border-radius: 0 0 $border-radius $border-radius;
+}
+
+.mood-label {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  text-align: center;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 0.75rem;
+  }
+}
+
+// Recently Played - using Bootstrap grid instead
+.recent-tracks-grid {
+  // Using Bootstrap 5 grid classes
+}
+
+.recent-track {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.recent-track-image {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: $border-radius;
+  margin-bottom: 12px;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.recent-track-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+
+  i {
+    font-size: 2rem;
+    color: white;
+  }
+}
+
+.recent-track-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 0.85rem;
+  }
+}
+
+.recent-track-artist {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin: 0 0 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 0.8rem;
+  }
+}
+
+.recent-track-time {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+// Call to Action Section
+.cta-section {
+  padding: 60px 0 80px;
+  background: linear-gradient(to bottom, var(--background), var(--secondary));
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 40px 0 60px;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 30px 0 50px;
+  }
+}
+
+.cta-card {
+  background-color: var(--secondary);
+  border-radius: $card-border-radius;
+  padding: 40px;
+  text-align: center;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+
+  @media (max-width: $breakpoint-tablet) {
+    padding: 30px;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: 24px;
+  }
+}
+
+.cta-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+
+  @media (max-width: $breakpoint-tablet) {
+    font-size: 1.75rem;
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 1.5rem;
+  }
+}
+
+.cta-description {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (max-width: $breakpoint-mobile) {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+}
+
+// Accent text styling
+.accent-text {
+  color: var(--accent);
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent);
+    opacity: 0.4;
+  }
+}
+
+// Button styles - Bootstrap 5 customization
+.btn-primary {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+
+  &:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.5);
+  }
+}
+
+.btn i {
+  margin-right: 8px;
+}

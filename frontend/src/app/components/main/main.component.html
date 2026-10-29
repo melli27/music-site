@@ -1,0 +1,275 @@
+<div class="dashboard-container">
+  <!-- Header with User Info -->
+  <header class="dashboard-header">
+    <div class="container">
+      <div class="user-welcome">
+        <div class="user-avatar">
+          <img *ngIf="spotifyUser?.images && spotifyUser.images.length" [src]="spotifyUser.images[0].url" alt="User Profile Picture">
+        </div>
+        <div class="user-greeting">
+          <h1 class="greeting-text">Welcome back, <span class="user-name">{{spotifyUser?.display_name}}</span></h1>
+          <p class="last-login">Last login: March 16, 2025</p>
+        </div>
+      </div>
+      <div class="quick-actions">
+        <button class="btn btn-action">
+          <i class="bi bi-plus-circle"></i> New Playlist
+        </button>
+        <button class="btn btn-action">
+          <i class="bi bi-shuffle"></i> Surprise Me
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Dashboard Area -->
+  <main class="dashboard-main">
+    <div class="container">
+      <!-- Stats Summary -->
+      <section class="stats-summary">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-clock-history"></i>
+            </div>
+            <div class="stat-content">
+              <h3 class="stat-value">127 hours</h3>
+              <p class="stat-label">Listened this month</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-music-note"></i>
+            </div>
+            <div class="stat-content">
+              <h3 class="stat-value">856</h3>
+              <p class="stat-label">Tracks played</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-star"></i>
+            </div>
+            <div class="stat-content">
+              <h3 class="stat-value">42</h3>
+              <p class="stat-label">New favorites</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="bi bi-graph-up"></i>
+            </div>
+            <div class="stat-content">
+              <h3 class="stat-value">+18%</h3>
+              <p class="stat-label">Listening growth</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recently Played -->
+      <section class="content-section">
+        <div class="section-header">
+          <h2 class="section-title">Recently Played</h2>
+          <a routerLink="/stats" class="view-all">View all</a>
+        </div>
+        <p *ngIf="recentLoading" class="track-artist">Loading...</p>
+        <p *ngIf="recentError" class="track-artist">Couldn't load your recently played tracks.</p>
+        <p *ngIf="!recentLoading && !recentError && recentTracks.length === 0" class="track-artist">
+          Nothing played recently.
+        </p>
+        <div class="track-grid" *ngIf="recentTracks.length">
+          <a class="track-card" *ngFor="let item of recentTracks"
+             [href]="item.track?.external_urls?.spotify" target="_blank" rel="noopener">
+            <div class="track-artwork">
+              <img *ngIf="imageUrl(item.track?.album?.images, 140) as img" [src]="img" alt="Album Art" class="track-img">
+              <div class="play-overlay">
+                <i class="bi bi-play-fill"></i>
+              </div>
+            </div>
+            <div class="track-info">
+              <h3 class="track-title" [title]="item.track?.name ?? ''">{{ item.track?.name }}</h3>
+              <p class="track-artist">{{ artistNames(item) }}</p>
+              <p class="track-artist">{{ timeAgo(item.playedAt) }}</p>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Your Playlists and Recommendations -->
+      <div class="flex-sections">
+        <!-- Your Playlists -->
+        <section class="content-section playlist-section">
+          <div class="section-header">
+            <h2 class="section-title">Your Playlists</h2>
+            <a *ngIf="spotifyUser" [href]="spotifyUser.external_urls?.spotify" target="_blank" rel="noopener"
+               class="view-all">View all{{ playlistTotal ? ' (' + playlistTotal + ')' : '' }}</a>
+          </div>
+          <p *ngIf="playlistsLoading" class="playlist-info">Loading...</p>
+          <p *ngIf="playlistsError" class="playlist-info">Couldn't load your playlists.</p>
+          <p *ngIf="!playlistsLoading && !playlistsError && playlists.length === 0" class="playlist-info">
+            You don't have any playlists yet.
+          </p>
+          <div class="playlist-list" *ngIf="playlists.length">
+            <div class="playlist-item" *ngFor="let playlist of playlists">
+              <div class="playlist-icon">
+                <img *ngIf="imageUrl(playlist.images, 60) as img; else noCover" [src]="img" alt="Playlist Cover">
+                <ng-template #noCover><i class="bi bi-music-note-list"></i></ng-template>
+              </div>
+              <div class="playlist-details">
+                <h3 class="playlist-name">{{ playlist.name }}</h3>
+                <p class="playlist-info">
+                  {{ playlist.tracks?.total ?? 0 }} tracks • by {{ playlist.owner?.display_name }}
+                </p>
+              </div>
+              <a class="playlist-action" [href]="playlist.external_urls?.spotify" target="_blank" rel="noopener"
+                 title="Open in Spotify">
+                <i class="bi bi-play-circle"></i>
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Recommendations -->
+        <section class="content-section recommendation-section">
+          <div class="section-header">
+            <h2 class="section-title">Recommended For You</h2>
+            <a href="#" class="view-all">Refresh</a>
+          </div>
+          <div class="recommendation-list">
+            <div class="recommendation-item">
+              <div class="recommendation-artwork">
+                <img src="/api/placeholder/60/60" alt="Album Art" class="recommendation-img">
+              </div>
+              <div class="recommendation-details">
+                <h3 class="recommendation-title">Levitating</h3>
+                <p class="recommendation-artist">Dua Lipa</p>
+              </div>
+              <div class="recommendation-match">
+                <span class="match-percentage">94%</span>
+                <span class="match-label">match</span>
+              </div>
+            </div>
+            <div class="recommendation-item">
+              <div class="recommendation-artwork">
+                <img src="/api/placeholder/60/60" alt="Album Art" class="recommendation-img">
+              </div>
+              <div class="recommendation-details">
+                <h3 class="recommendation-title">As It Was</h3>
+                <p class="recommendation-artist">Harry Styles</p>
+              </div>
+              <div class="recommendation-match">
+                <span class="match-percentage">91%</span>
+                <span class="match-label">match</span>
+              </div>
+            </div>
+            <div class="recommendation-item">
+              <div class="recommendation-artwork">
+                <img src="/api/placeholder/60/60" alt="Album Art" class="recommendation-img">
+              </div>
+              <div class="recommendation-details">
+                <h3 class="recommendation-title">Shivers</h3>
+                <p class="recommendation-artist">Ed Sheeran</p>
+              </div>
+              <div class="recommendation-match">
+                <span class="match-percentage">89%</span>
+                <span class="match-label">match</span>
+              </div>
+            </div>
+            <div class="recommendation-item">
+              <div class="recommendation-artwork">
+                <img src="/api/placeholder/60/60" alt="Album Art" class="recommendation-img">
+              </div>
+              <div class="recommendation-details">
+                <h3 class="recommendation-title">Stay</h3>
+                <p class="recommendation-artist">The Kid LAROI & Justin Bieber</p>
+              </div>
+              <div class="recommendation-match">
+                <span class="match-percentage">87%</span>
+                <span class="match-label">match</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Music Insights -->
+      <section class="content-section insights-section">
+        <div class="section-header">
+          <h2 class="section-title">Your Music Insights</h2>
+          <a href="#" class="view-all">Full analysis</a>
+        </div>
+        <div class="insights-grid">
+          <div class="insight-card">
+            <h3 class="insight-title">Top Genres</h3>
+            <div class="insight-content">
+              <div class="genre-bar">
+                <div class="genre-segment" style="width: 35%; background-color: #1DB954;">
+                  <span class="genre-label">Pop</span>
+                </div>
+                <div class="genre-segment" style="width: 25%; background-color: #1DB954CC;">
+                  <span class="genre-label">Rock</span>
+                </div>
+                <div class="genre-segment" style="width: 20%; background-color: #1DB95499;">
+                  <span class="genre-label">R&B</span>
+                </div>
+                <div class="genre-segment" style="width: 15%; background-color: #1DB95466;">
+                  <span class="genre-label">Hip-Hop</span>
+                </div>
+                <div class="genre-segment" style="width: 5%; background-color: #1DB95433;">
+                  <span class="genre-label">Other</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="insight-card">
+            <h3 class="insight-title">Mood Distribution</h3>
+            <div class="insight-content mood-chart">
+              <div class="mood-item">
+                <div class="mood-bar" style="height: 80%;">
+                  <span class="mood-percentage">80%</span>
+                </div>
+                <span class="mood-label">Energetic</span>
+              </div>
+              <div class="mood-item">
+                <div class="mood-bar" style="height: 65%;">
+                  <span class="mood-percentage">65%</span>
+                </div>
+                <span class="mood-label">Happy</span>
+              </div>
+              <div class="mood-item">
+                <div class="mood-bar" style="height: 40%;">
+                  <span class="mood-percentage">40%</span>
+                </div>
+                <span class="mood-label">Chill</span>
+              </div>
+              <div class="mood-item">
+                <div class="mood-bar" style="height: 25%;">
+                  <span class="mood-percentage">25%</span>
+                </div>
+                <span class="mood-label">Melancholic</span>
+              </div>
+            </div>
+          </div>
+          <div class="insight-card listening-times">
+            <h3 class="insight-title">Listening Times</h3>
+            <div class="insight-content">
+              <div class="time-chart">
+                <div class="time-bar morning" style="height: 30%;" title="Morning: 30%"></div>
+                <div class="time-bar afternoon" style="height: 45%;" title="Afternoon: 45%"></div>
+                <div class="time-bar evening" style="height: 75%;" title="Evening: 75%"></div>
+                <div class="time-bar night" style="height: 60%;" title="Night: 60%"></div>
+              </div>
+              <div class="time-labels">
+                <span>Morning</span>
+                <span>Afternoon</span>
+                <span>Evening</span>
+                <span>Night</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

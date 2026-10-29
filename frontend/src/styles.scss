@@ -1,0 +1,96 @@
+// 1. Purple Dark Theme (Current)
+:root {
+  --background: #1A1A24;
+  --secondary: #24242F;
+  --accent: #6555DF;
+  --accent-hover: #7C6EEB;
+  --text: #E4E4E9;
+}
+.theme-purple-dark {
+  --background: #1A1A24;
+  --secondary: #24242F;
+  --accent: #6555DF;
+  --accent-hover: #7C6EEB;
+  --text: #E4E4E9;
+}
+
+// 2. Midnight Groove Theme
+.theme-midnight-groove {
+  --background: #0F1123;
+  --secondary: #1E213A;
+  --accent: #FF2E63;
+  --accent-hover: #FF5A85;
+  --text: #EEEEEE;
+}
+
+// 3. Deep Ocean Theme
+.theme-deep-ocean {
+  --background: #0F2027;
+  --secondary: #203A43;
+  --accent: #00B4DB;
+  --accent-hover: #0ED2F7;
+  --text: #E0E0E0;
+}
+
+// 4. Neon Nights Theme
+.theme-neon-nights {
+  --background: #0B0C10;
+  --secondary: #1F2833;
+  --accent: #66FCF1;
+  --accent-hover: #45A29E;
+  --text: #C5C6C7;
+}
+
+// 5. Synthwave Theme
+.theme-synthwave {
+  --background: #170F2B;
+  --secondary: #251A41;
+  --accent: #E637BF;
+  --accent-hover: #FF57D8;
+  --text: #F8E9F0;
+}
+
+// 6. Dark Forest Theme
+.theme-dark-forest {
+  --background: #121B13;
+  --secondary: #1D2A1F;
+  --accent: #49A078;
+  --accent-hover: #58B087;
+  --text: #DCE1DE;
+}
+
+// 7. Smooth Charcoal Theme
+.theme-smooth-charcoal {
+  --background: #19191B;
+  --secondary: #27272B;
+  --accent: #E68E36;
+  --accent-hover: #F5A35A;
+  --text: #F3F3F7;
+}
+
+// 8. Dark Spotify-inspired Theme
+.theme-spotify-dark {
+  --background: #121212;
+  --secondary: #212121;
+  --accent: #1DB954;
+  --accent-hover: #1ED760;
+  --text: #FFFFFF;
+}
+
+// 9. Dark Cherry Theme
+.theme-dark-cherry {
+  --background: #1B1B1E;
+  --secondary: #2B2B30;
+  --accent: #A4303F;
+  --accent-hover: #C13A4E;
+  --text: #F0F0F2;
+}
+
+// Base styles
+body {
+  min-height: 100vh;
+  background-color: var(--background);
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}

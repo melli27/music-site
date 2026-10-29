@@ -1,0 +1,105 @@
+// TODO Other variables
+$logo-height-desktop: 40px;
+$logo-height-tablet: 36px;
+$logo-height-mobile: 32px;
+$transition-speed: 0.3s;
+$border-radius: 8px;
+
+// Navbar styles
+.navbar {
+  background-color: var(--secondary);
+  padding: 12px 20px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.15);
+
+  &-brand {
+    display: flex;
+    align-items: center;
+
+    img {
+      height: $logo-height-desktop;
+      width: auto;
+      margin-right: 10px;
+      transition: transform $transition-speed ease;
+      max-width: 100%;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+    }
+
+    .brand-name {
+      color: var(--text);
+      font-weight: 600;
+      font-size: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+  }
+
+  // Navigation links
+  .nav-link {
+    color: var(--text) !important;
+    margin-left: 24px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: 8px 12px !important;
+    border-radius: $border-radius;
+    transition: background-color $transition-speed ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    &.action-btn {
+      background-color: var(--accent);
+      color: white !important;
+      padding: 8px 18px !important;
+      border-radius: $border-radius;
+      align-content: center;
+
+      &:hover {
+        background-color: var(--accent-hover);
+      }
+    }
+  }
+
+  // Mobile menu toggle
+  &-toggler {
+    border-color: rgba(255, 255, 255, 0.1);
+
+    &-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.7%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+  }
+}
+
+// Responsive styles
+@media (max-width: 991.98px) {
+  .navbar {
+    &-brand {
+      img {
+        height: $logo-height-tablet;
+      }
+    }
+
+    &-nav {
+      padding-top: 1rem;
+    }
+
+    .nav-link {
+      margin-left: 0 !important;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .navbar-brand {
+    img {
+      height: $logo-height-mobile;
+    }
+
+    .brand-name {
+      font-size: 1.1rem;
+    }
+  }
+}

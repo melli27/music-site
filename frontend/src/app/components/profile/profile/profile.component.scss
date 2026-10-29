@@ -1,0 +1,319 @@
+// TODO Other variables
+$logo-height-desktop: 40px;
+$logo-height-tablet: 36px;
+$logo-height-mobile: 32px;
+$transition-speed: 0.3s;
+$border-radius: 8px;
+
+// profile.component.scss
+$card-padding: 24px;
+$card-border-radius: 16px;
+$transition-speed: 0.3s;
+$placeholder-bg: rgba(255, 255, 255, 0.1);
+
+.profile-container {
+  padding: 40px 0;
+  min-height: calc(100vh - 64px);
+}
+
+.profile-card, .content-card {
+  background-color: var(--secondary);
+  border-radius: $card-border-radius;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  margin-bottom: 30px;
+  overflow: hidden;
+  transition: transform $transition-speed ease, box-shadow $transition-speed ease;
+
+/*  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  }*/
+}
+
+.profile-card {
+  .profile-header {
+    padding: $card-padding;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .profile-image {
+    margin-bottom: 20px;
+    position: relative;
+
+    img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .no-image {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background-color: var(--background);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 4px solid var(--accent);
+
+      i {
+        font-size: 80px;
+        color: var(--accent);
+      }
+    }
+  }
+
+  .profile-info {
+    .profile-name {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .profile-id {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      display: block;
+    }
+  }
+
+  .profile-stats {
+    display: flex;
+    padding: 20px $card-padding;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+    .stat-item {
+      flex: 1;
+      text-align: center;
+
+      .stat-label {
+        display: block;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        margin-bottom: 6px;
+      }
+
+      .stat-value {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text);
+
+        &.capitalize {
+          text-transform: capitalize;
+        }
+      }
+    }
+  }
+
+  .profile-actions {
+    padding: $card-padding;
+    display: flex;
+    justify-content: center;
+
+    .btn-spotify {
+      background-color: #1DB954;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: $border-radius;
+      font-weight: 600;
+      transition: background-color $transition-speed ease;
+
+      &:hover {
+        background-color: #1ed760;
+      }
+
+      i {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+.content-card {
+  padding: $card-padding;
+  height: 100%;
+
+  h3 {
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .activity-section, .sync-section {
+    margin-bottom: 30px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+
+    h4 {
+      margin-bottom: 0;
+      margin-right: 10px;
+      font-weight: 600;
+    }
+
+    .badge {
+      background-color: var(--accent);
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 20px;
+    }
+  }
+
+  h4 {
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-bottom: 15px;
+  }
+
+  .muted-text {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+
+  .placeholder-container {
+    margin-top: 20px;
+  }
+
+  .placeholder-item {
+    display: flex;
+    padding: 12px;
+    border-radius: $border-radius;
+    background-color: rgba(255, 255, 255, 0.05);
+    margin-bottom: 12px;
+
+    .placeholder-image {
+      width: 48px;
+      height: 48px;
+      border-radius: 4px;
+      background-color: $placeholder-bg;
+      margin-right: 15px;
+      flex-shrink: 0;
+    }
+
+    .placeholder-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .placeholder-line {
+        height: 14px;
+        width: 70%;
+        background-color: $placeholder-bg;
+        border-radius: 4px;
+        margin-bottom: 8px;
+
+        &.short {
+          width: 40%;
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  .detail-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 16px;
+
+    i {
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin-right: 15px;
+      margin-top: 4px;
+    }
+
+    .detail-content {
+      flex: 1;
+
+      .detail-label {
+        display: block;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin-bottom: 4px;
+      }
+
+      .detail-value {
+        font-size: 0.95rem;
+        color: var(--text);
+        word-break: break-all;
+      }
+    }
+  }
+
+  .update-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+
+    .last-updated {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+
+      .time {
+        color: var(--text);
+      }
+    }
+
+    .btn-outline-accent {
+      border-color: var(--accent);
+      color: var(--accent);
+
+      &:hover {
+        background-color: var(--accent);
+        color: white;
+      }
+
+      i {
+        margin-right: 6px;
+      }
+    }
+  }
+}
+
+@media (max-width: 991.98px) {
+  .profile-container {
+    padding: 20px 0;
+  }
+
+  .profile-card {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .profile-image {
+    img, .no-image {
+      width: 140px !important;
+      height: 140px !important;
+    }
+
+    .no-image i {
+      font-size: 60px !important;
+    }
+  }
+
+  .profile-name {
+    font-size: 1.5rem !important;
+  }
+
+  .card-padding {
+    padding: 16px !important;
+  }
+}
